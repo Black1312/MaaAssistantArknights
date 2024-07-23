@@ -1,13 +1,13 @@
 {
-    "Mizuki@Roguelike@ChooseDifficultyConfirm": {
-        "text": [
-            "Select"
-        ]
-    },
     "ClickChapter1": {
         "text": [
             "Hour of An Awakening",
             "Hour of An"
+        ]
+    },
+    "Mizuki@Roguelike@ChooseDifficultyConfirm": {
+        "text": [
+            "Select"
         ]
     },
     "ClickChapter2": {
