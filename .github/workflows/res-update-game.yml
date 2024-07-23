@@ -171,27 +171,27 @@ jobs:
             ./tools/ResourceUpdater/x64/Release/opencv_world4_maa.dll
             ./tools/ResourceUpdater/x64/Release/ResourceUpdater.exe
 
-      - name: Download txwy
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: txwy
-          path: ./tools/ResourceUpdater/x64/Release/Overseas/zh_TW/gamedata/excel
+      # - name: Download txwy
+      #   uses: actions/download-artifact@v4.1.8
+      #   with:
+      #     name: txwy
+      #     path: ./tools/ResourceUpdater/x64/Release/Overseas/zh_TW/gamedata/excel
 
-      - name: Download Overseas
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: overseas
-          path: ./tools/ResourceUpdater/x64/Release/Overseas
+      # - name: Download Overseas
+      #   uses: actions/download-artifact@v4.1.8
+      #   with:
+      #     name: overseas
+      #     path: ./tools/ResourceUpdater/x64/Release/Overseas
 
-      - name: Download Official
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: official
-          path: ./tools/ResourceUpdater/x64/Release/Official
+      # - name: Download Official
+      #   uses: actions/download-artifact@v4.1.8
+      #   with:
+      #     name: official
+      #     path: ./tools/ResourceUpdater/x64/Release/Official
 
-      - name: Run Resource Updater
-        run: |
-          ./tools/ResourceUpdater/x64/Release/ResourceUpdater.exe
+      # - name: Run Resource Updater
+      #   run: |
+      #     ./tools/ResourceUpdater/x64/Release/ResourceUpdater.exe
 
       - name: Task Sorting
         run: |
