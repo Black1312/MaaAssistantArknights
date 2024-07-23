@@ -11,103 +11,103 @@ on:
         required: false
 
 jobs:
-  clone-resources-official:
-    if: github.repository_owner == 'MaaAssistantArknights'
-    runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.MAA_RESOURCE_SYNC }}
-    steps:
-      - name: Clone ArknightsGameResource for Official
-        uses: actions/checkout@v4
-        with:
-          show-progress: false
-          repository: yuanyan3060/ArknightsGameResource
-          ref: main
-          path: ./Official
-          fetch-depth: 1
-          sparse-checkout-cone-mode: false
-          sparse-checkout: |
-            /levels.json
-            /item
-            /building_skill
-            /gamedata/excel/item_table.json
-            /gamedata/excel/building_data.json
-            /gamedata/excel/range_table.json
-            /gamedata/excel/character_table.json
-            /gamedata/excel/gacha_table.json
-            /gamedata/excel/roguelike_topic_table.json
-            /gamedata/excel/activity_table.json
+  # clone-resources-official:
+  #   if: github.repository_owner == 'MaaAssistantArknights'
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     GH_TOKEN: ${{ secrets.MAA_RESOURCE_SYNC }}
+  #   steps:
+  #     - name: Clone ArknightsGameResource for Official
+  #       uses: actions/checkout@v4
+  #       with:
+  #         show-progress: false
+  #         repository: yuanyan3060/ArknightsGameResource
+  #         ref: main
+  #         path: ./Official
+  #         fetch-depth: 1
+  #         sparse-checkout-cone-mode: false
+  #         sparse-checkout: |
+  #           /levels.json
+  #           /item
+  #           /building_skill
+  #           /gamedata/excel/item_table.json
+  #           /gamedata/excel/building_data.json
+  #           /gamedata/excel/range_table.json
+  #           /gamedata/excel/character_table.json
+  #           /gamedata/excel/gacha_table.json
+  #           /gamedata/excel/roguelike_topic_table.json
+  #           /gamedata/excel/activity_table.json
 
-      - name: Upload Official
-        uses: actions/upload-artifact@v4.3.4
-        with:
-          name: official
-          path: ./Official
+  #     - name: Upload Official
+  #       uses: actions/upload-artifact@v4.3.4
+  #       with:
+  #         name: official
+  #         path: ./Official
 
-  clone-resources-overseas:
-    if: github.repository_owner == 'MaaAssistantArknights'
-    runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.MISTEOWORKFLOW }}
-    steps:
-      - name: Clone ArknightsGameResource_Yostar for Overseas
-        uses: actions/checkout@v4
-        with:
-          show-progress: false
-          repository: Kengxxiao/ArknightsGameData_Yostar
-          ref: main
-          path: ./Overseas
-          fetch-depth: 1
-          sparse-checkout-cone-mode: false
-          sparse-checkout: |
-            /en_US/gamedata/excel/item_table.json
-            /en_US/gamedata/excel/building_data.json
-            /en_US/gamedata/excel/range_table.json
-            /en_US/gamedata/excel/character_table.json
-            /en_US/gamedata/excel/gacha_table.json
-            /en_US/gamedata/excel/roguelike_topic_table.json
-            /en_US/gamedata/excel/activity_table.json
-            /ja_JP/gamedata/excel/item_table.json
-            /ja_JP/gamedata/excel/building_data.json
-            /ja_JP/gamedata/excel/range_table.json
-            /ja_JP/gamedata/excel/character_table.json
-            /ja_JP/gamedata/excel/gacha_table.json
-            /ja_JP/gamedata/excel/roguelike_topic_table.json
-            /ja_JP/gamedata/excel/activity_table.json
-            /ko_KR/gamedata/excel/item_table.json
-            /ko_KR/gamedata/excel/building_data.json
-            /ko_KR/gamedata/excel/range_table.json
-            /ko_KR/gamedata/excel/character_table.json
-            /ko_KR/gamedata/excel/gacha_table.json
-            /ko_KR/gamedata/excel/roguelike_topic_table.json
-            /ko_KR/gamedata/excel/activity_table.json
+  # clone-resources-overseas:
+  #   if: github.repository_owner == 'MaaAssistantArknights'
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     GH_TOKEN: ${{ secrets.MISTEOWORKFLOW }}
+  #   steps:
+  #     - name: Clone ArknightsGameResource_Yostar for Overseas
+  #       uses: actions/checkout@v4
+  #       with:
+  #         show-progress: false
+  #         repository: Kengxxiao/ArknightsGameData_Yostar
+  #         ref: main
+  #         path: ./Overseas
+  #         fetch-depth: 1
+  #         sparse-checkout-cone-mode: false
+  #         sparse-checkout: |
+  #           /en_US/gamedata/excel/item_table.json
+  #           /en_US/gamedata/excel/building_data.json
+  #           /en_US/gamedata/excel/range_table.json
+  #           /en_US/gamedata/excel/character_table.json
+  #           /en_US/gamedata/excel/gacha_table.json
+  #           /en_US/gamedata/excel/roguelike_topic_table.json
+  #           /en_US/gamedata/excel/activity_table.json
+  #           /ja_JP/gamedata/excel/item_table.json
+  #           /ja_JP/gamedata/excel/building_data.json
+  #           /ja_JP/gamedata/excel/range_table.json
+  #           /ja_JP/gamedata/excel/character_table.json
+  #           /ja_JP/gamedata/excel/gacha_table.json
+  #           /ja_JP/gamedata/excel/roguelike_topic_table.json
+  #           /ja_JP/gamedata/excel/activity_table.json
+  #           /ko_KR/gamedata/excel/item_table.json
+  #           /ko_KR/gamedata/excel/building_data.json
+  #           /ko_KR/gamedata/excel/range_table.json
+  #           /ko_KR/gamedata/excel/character_table.json
+  #           /ko_KR/gamedata/excel/gacha_table.json
+  #           /ko_KR/gamedata/excel/roguelike_topic_table.json
+  #           /ko_KR/gamedata/excel/activity_table.json
 
-      - name: Upload Official
-        uses: actions/upload-artifact@v4.3.4
-        with:
-          name: overseas
-          path: ./Overseas
+  #     - name: Upload Official
+  #       uses: actions/upload-artifact@v4.3.4
+  #       with:
+  #         name: overseas
+  #         path: ./Overseas
 
-  clone-resources-txwy:
-    runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.MISTEOWORKFLOW }}
-    steps:
-      - name: Clone arknights-toolbox-update for Taiwan
-        uses: actions/checkout@v4
-        with:
-          show-progress: false
-          repository: arkntools/arknights-toolbox-update
-          ref: data-tw
-          path: ./excel
-          fetch-depth: 1
-          token: ${{ secrets.ARKNTOOLS_MAA_RESOURCE_UPDATER}}
+  # clone-resources-txwy:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     GH_TOKEN: ${{ secrets.MISTEOWORKFLOW }}
+  #   steps:
+  #     - name: Clone arknights-toolbox-update for Taiwan
+  #       uses: actions/checkout@v4
+  #       with:
+  #         show-progress: false
+  #         repository: arkntools/arknights-toolbox-update
+  #         ref: data-tw
+  #         path: ./excel
+  #         fetch-depth: 1
+  #         token: ${{ secrets.ARKNTOOLS_MAA_RESOURCE_UPDATER}}
 
-      - name: Upload Official
-        uses: actions/upload-artifact@v4.3.4
-        with:
-          name: txwy
-          path: ./excel
+  #     - name: Upload Official
+  #       uses: actions/upload-artifact@v4.3.4
+  #       with:
+  #         name: txwy
+  #         path: ./excel
 
   update-game-resources:
     if: github.repository_owner == 'MaaAssistantArknights'
