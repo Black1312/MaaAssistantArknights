@@ -248,42 +248,36 @@ jobs:
           echo "noDiff: "$noDiff
           echo "only_sorted=$noDiff" >> $env:GITHUB_OUTPUT
 
-      - name: Add files to git
+      - name: Set commit message
+        id: commit_message
         if: steps.check_only_sorted.outputs.only_sorted != 'True'
-        id: add_files
         run: |
-          git status
-
-          git config user.name "${{ steps.user_info.outputs.username }}"
-          git config user.email "${{ steps.user_info.outputs.email }}"
-          git add .
-
-          $commit_msg = "${{ github.event.inputs.commit_message }}"
-          if (-not [string]::IsNullOrWhiteSpace($commit_msg)) {
-            $commit_msg = $commit_msg.Trim()
-          } else {
+          if ([string]::IsNullOrWhiteSpace(${{ github.event.inputs.commit_message }})) {
             $commit_msg = "chore: Auto Update Game Resources - $(Get-Date -Format 'yyyy-MM-dd')"
+          } else {
+            $commit_msg = ${{ github.event.inputs.commit_message }}.Trim()
           }
-          git commit -m "$commit_msg" -m "[skip changelog]"
-          if ($LASTEXITCODE -eq 0) {
-            echo "have_commits=True" >> $env:GITHUB_OUTPUT
-          }
+          echo "commit_message=$commit_msg" >> $env:GITHUB_ENV
 
-          git pull origin $(git rev-parse --abbrev-ref HEAD) --unshallow --rebase
-
-      - name: Push changes # push the output folder to your repo
-        if: steps.add_files.outputs.have_commits == 'True'
-        uses: ad-m/github-push-action@master
+      - name: Add, commit, and push changes
+        id: commit_push
+        if: steps.check_only_sorted.outputs.only_sorted != 'True'
+        uses: EndBug/add-and-commit@v9.1.4
         with:
-          github_token: ${{ secrets.MAA_RESOURCE_SYNC }}
+          author_name: ${{ steps.user_info.outputs.username }}
+          author_email: ${{ steps.user_info.outputs.email }}
+          pull: '--rebase'
+          message: |
+            ${{ steps.commit_message.outputs.commit_message }}
+            [skip changelog]
 
       - name: Update OTA resource
-        if: steps.add_files.outputs.have_commits == 'True'
+        if: steps.commit_push.outcome == 'success'
         run: |
           gh workflow --repo MaaAssistantArknights/MaaRelease run update-resource.yml
 
     #   - name: Release # ref: https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow
-    #     if: steps.add_files.outputs.have_commits == 'True'
+    #     if: steps.check_only_sorted.outputs.only_sorted != 'True'
     #     run: |
     #       gh workflow run release-nightly-ota -f release_body="Auto Release of Resource Updates"
     #     env:
