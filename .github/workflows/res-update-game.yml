@@ -112,8 +112,6 @@ jobs:
   update-game-resources:
     if: github.repository_owner == 'MaaAssistantArknights'
     runs-on: windows-latest
-    permissions:
-      actions: write
     env:
       GH_TOKEN: ${{ secrets.MISTEOWORKFLOW }}
     steps:
@@ -121,7 +119,7 @@ jobs:
         id: user_info
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.MISTEOWORKFLOW }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { data: user } = await github.rest.users.getAuthenticated();
             const { data: public_email } = await github.rest.users.listPublicEmailsForAuthenticatedUser();
@@ -285,7 +283,7 @@ jobs:
         if: steps.add_files.outputs.have_commits == 'True'
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.MISTEOWORKFLOW }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
 
