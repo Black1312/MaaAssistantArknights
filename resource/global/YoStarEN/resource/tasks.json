@@ -1,5 +1,9 @@
 {
-
+    "Mizuki@Roguelike@ChooseDifficultyConfirm": {
+        "text": [
+            "Select"
+        ]
+    },
     "ClickChapter1": {
         "text": [
             "Hour of An Awakening",
@@ -12,11 +16,6 @@
             "Shatter of A"
         ]
     },
-        "Mizuki@Roguelike@ChooseDifficultyConfirm": {
-            "text": [
-                "Select"
-            ]
-        },
     "ClickChapter3": {
         "text": [
             "Shadow of A Dying Sun",
