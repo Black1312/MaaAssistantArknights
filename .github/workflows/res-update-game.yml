@@ -260,6 +260,7 @@ jobs:
         with:
           author_name: ${{ steps.user_info.outputs.username }}
           author_email: ${{ steps.user_info.outputs.email }}
+          pull: '--rebase --autostash'
           fetch: false
           message: |
             ${{ steps.commit_message.outputs.commit_message }}
