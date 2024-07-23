@@ -137,81 +137,81 @@ jobs:
           fetch-depth: 1
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Restore ResourceUpdater.exe from cache
-        id: cache-resupd
-        uses: actions/cache/restore@v4
-        with:
-          key: ${{ runner.os }}-resource-updater-main-cpp-${{ hashFiles('./tools/ResourceUpdater/main.cpp') }}
-          path: |
-            ./tools/ResourceUpdater/x64/Release/opencv_world4_maa.dll
-            ./tools/ResourceUpdater/x64/Release/ResourceUpdater.exe
+      # - name: Restore ResourceUpdater.exe from cache
+      #   id: cache-resupd
+      #   uses: actions/cache/restore@v4
+      #   with:
+      #     key: ${{ runner.os }}-resource-updater-main-cpp-${{ hashFiles('./tools/ResourceUpdater/main.cpp') }}
+      #     path: |
+      #       ./tools/ResourceUpdater/x64/Release/opencv_world4_maa.dll
+      #       ./tools/ResourceUpdater/x64/Release/ResourceUpdater.exe
 
-      - name: Bootstrap MaaDeps
-        if: steps.cache-resupd.outputs.cache-hit != 'true'
-        run: |
-          python3 maadeps-download.py x64-windows
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Bootstrap MaaDeps
+      #   if: steps.cache-resupd.outputs.cache-hit != 'true'
+      #   run: |
+      #     python3 maadeps-download.py x64-windows
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Add msbuild to PATH
-        if: steps.cache-resupd.outputs.cache-hit != 'true'
-        uses: microsoft/setup-msbuild@v2
+      # - name: Add msbuild to PATH
+      #   if: steps.cache-resupd.outputs.cache-hit != 'true'
+      #   uses: microsoft/setup-msbuild@v2
 
-      - name: Build Resource Updater
-        if: steps.cache-resupd.outputs.cache-hit != 'true'
-        run: |
-          MSBUILD tools/ResourceUpdater/ResourceUpdater.vcxproj /t:rebuild /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false /m
+      # - name: Build Resource Updater
+      #   if: steps.cache-resupd.outputs.cache-hit != 'true'
+      #   run: |
+      #     MSBUILD tools/ResourceUpdater/ResourceUpdater.vcxproj /t:rebuild /p:Configuration="Release" /p:Platform="x64" /p:BuildProjectReferences=false /m
 
-      - name: Save ResourceUpdater.exe to cache
-        if: always() && steps.cache-resupd.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
-        with:
-          key: ${{ runner.os }}-resource-updater-main-cpp-${{ hashFiles('./tools/ResourceUpdater/main.cpp') }}
-          path: |
-            ./tools/ResourceUpdater/x64/Release/opencv_world4_maa.dll
-            ./tools/ResourceUpdater/x64/Release/ResourceUpdater.exe
+      # - name: Save ResourceUpdater.exe to cache
+      #   if: always() && steps.cache-resupd.outputs.cache-hit != 'true'
+      #   uses: actions/cache/save@v4
+      #   with:
+      #     key: ${{ runner.os }}-resource-updater-main-cpp-${{ hashFiles('./tools/ResourceUpdater/main.cpp') }}
+      #     path: |
+      #       ./tools/ResourceUpdater/x64/Release/opencv_world4_maa.dll
+      #       ./tools/ResourceUpdater/x64/Release/ResourceUpdater.exe
 
-      - name: Download txwy
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: txwy
-          path: ./tools/ResourceUpdater/x64/Release/Overseas/zh_TW/gamedata/excel
+      # - name: Download txwy
+      #   uses: actions/download-artifact@v4.1.8
+      #   with:
+      #     name: txwy
+      #     path: ./tools/ResourceUpdater/x64/Release/Overseas/zh_TW/gamedata/excel
 
-      - name: Download Overseas
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: overseas
-          path: ./tools/ResourceUpdater/x64/Release/Overseas
+      # - name: Download Overseas
+      #   uses: actions/download-artifact@v4.1.8
+      #   with:
+      #     name: overseas
+      #     path: ./tools/ResourceUpdater/x64/Release/Overseas
 
-      - name: Download Official
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: official
-          path: ./tools/ResourceUpdater/x64/Release/Official
+      # - name: Download Official
+      #   uses: actions/download-artifact@v4.1.8
+      #   with:
+      #     name: official
+      #     path: ./tools/ResourceUpdater/x64/Release/Official
 
-      - name: Run Resource Updater
-        run: |
-          ./tools/ResourceUpdater/x64/Release/ResourceUpdater.exe
+      # - name: Run Resource Updater
+      #   run: |
+      #     ./tools/ResourceUpdater/x64/Release/ResourceUpdater.exe
 
       - name: Task Sorting
         run: |
           python3 tools/TaskSorter/TaskSorter.py
 
-      - name: Cache Prettier
-        id: cache-prettier
-        uses: actions/cache@v4
-        with:
-          key: ${{ runner.os }}-prettier
-          path: ./node_modules
+      # - name: Cache Prettier
+      #   id: cache-prettier
+      #   uses: actions/cache@v4
+      #   with:
+      #     key: ${{ runner.os }}-prettier
+      #     path: ./node_modules
 
-      - name: Install Prettier
-        if: steps.cache-prettier.outputs.cache-hit != 'true'
-        run: |
-          npm i prettier --no-save
+      # - name: Install Prettier
+      #   if: steps.cache-prettier.outputs.cache-hit != 'true'
+      #   run: |
+      #     npm i prettier --no-save
 
-      - name: Run Prettier on modified Jsons
-        run: |
-          Invoke-Expression "npx prettier -w $(git diff --name-only --diff-filter=ACM 2>$null | Where-Object { $_ -match '\.json$' })"
+      # - name: Run Prettier on modified Jsons
+      #   run: |
+      #     Invoke-Expression "npx prettier -w $(git diff --name-only --diff-filter=ACM 2>$null | Where-Object { $_ -match '\.json$' })"
 
       - name: Check if only sorted
         id: check_only_sorted
