@@ -224,9 +224,9 @@ jobs:
             exit 0
           }
 
-          echo "diff: $diff"
+          echo "diff: "$diff
           $numbers = $diff -split "\s+" | Where-Object { $_ -match "^\d+$" }
-          echo "numbers: $numbers"
+          echo "numbers: "$numbers
 
           $noDiff = $true
           for ($i = 0; $i -lt $numbers.Length; $i += 2) {
