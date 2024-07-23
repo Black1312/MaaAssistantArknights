@@ -1,31 +1,4 @@
 {
-    "SlowlySwipeToTheRight": {
-        "algorithm": "JustReturn",
-        "action": "Swipe",
-        "postDelay": 200,
-        "specificRect": [
-            880,
-            310,
-            100,
-            100
-        ],
-        "rectMove": [
-            300,
-            310,
-            100,
-            100
-        ],
-        "specialParams": [
-            200,
-            1,
-            2,
-            0
-        ],
-        "next": [
-            "#next"
-        ],
-        "maxTimes": 50
-    },
     "SlowlySwipeToTheLeft": {
         "algorithm": "JustReturn",
         "action": "Swipe",
@@ -59,6 +32,16 @@
         "next": [
             "#next"
         ],
+        "maxTimes": 50
+    },
+    "SlowlySwipeToTheRight": {
+        "algorithm": "JustReturn",
+        "action": "Swipe",
+        "postDelay": 200,
+        "specificRect": [880, 310, 100, 100],
+        "rectMove": [300, 310, 100, 100],
+        "specialParams": [200, 1, 2, 0],
+        "next": ["#next"],
         "maxTimes": 50
     },
     "SlowlySwipeToTheUp": {
