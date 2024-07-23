@@ -245,10 +245,11 @@ jobs:
         id: commit_message
         if: steps.check_only_sorted.outputs.only_sorted != 'True'
         run: |
-          if ([string]::IsNullOrWhiteSpace(${{ github.event.inputs.commit_message }})) {
-            $commit_msg = "chore: Auto Update Game Resources - $(Get-Date -Format 'yyyy-MM-dd')"
+          $commit_msg = "${{ github.event.inputs.commit_message }}"
+          if (-not [string]::IsNullOrWhiteSpace($commit_msg)) {
+            $commit_msg = $commit_msg.Trim()
           } else {
-            $commit_msg = ${{ github.event.inputs.commit_message }}.Trim()
+            $commit_msg = "chore: Auto Update Game Resources - $(Get-Date -Format 'yyyy-MM-dd')"
           }
           echo "commit_message=$commit_msg" >> $env:GITHUB_ENV
 
