@@ -4,16 +4,16 @@
             "BI-6"
         ]
     },
-        "BI-6": {
-            "algorithm": "JustReturn",
-            "next": [
-                "BI-6@SideStoryStage",
-                "BI-6@SwipeToStage"
-            ],
-            "sub": [
-                "BI-Open"
-            ]
-        },
+    "BI-6": {
+        "algorithm": "JustReturn",
+        "next": [
+            "BI-6@SideStoryStage",
+            "BI-6@SwipeToStage"
+        ],
+        "sub": [
+            "BI-Open"
+        ]
+    },
     "BI-7": {
         "algorithm": "JustReturn",
         "next": [
