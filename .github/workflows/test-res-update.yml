@@ -1,14 +1,14 @@
-name: res-update-game
+name: TESTING DO NOT USE
 
 on:
   # schedule:
   #   - cron: "*/20 * * * *"
   workflow_dispatch:
-    inputs:
-      commit_message:
-        description: "Commit Message"
-        type: string
-        required: false
+    # inputs:
+    #   commit_message:
+    #     description: "Commit Message"
+    #     type: string
+    #     required: false
 
 jobs:
   # clone-resources-official:
