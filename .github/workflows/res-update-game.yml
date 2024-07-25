@@ -111,7 +111,7 @@ jobs:
         id: user_info
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.MAA_RESOURCE_UPDATER_TEST }}
+          github-token: ${{ secrets.MAA_RESOURCE_SYNC }}
           script: |
             const { data: user } = await github.rest.users.getAuthenticated();
             const { data: public_email } = await github.rest.users.listPublicEmailsForAuthenticatedUser();
@@ -125,6 +125,7 @@ jobs:
       - name: Checkout MAA
         uses: actions/checkout@v4
         with:
+          persist-credentials: false
           show-progress: false
           fetch-depth: 1
 
@@ -264,7 +265,7 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           branch: ${{ github.ref }}
-          github_token: ${{ secrets.MAA_RESOURCE_UPDATER_TEST }}
+          github_token: ${{ secrets.MAA_RESOURCE_SYNC }}
 
       - name: Update OTA resource
         if: steps.add_files.outputs.have_commits == 'True'
