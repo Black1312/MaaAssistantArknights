@@ -263,6 +263,7 @@ jobs:
         if: steps.add_files.outputs.have_commits == 'True'
         uses: ad-m/github-push-action@master
         with:
+          branch: ${{ github.ref }}
           github_token: ${{ secrets.MAA_RESOURCE_SYNC }}
 
       - name: Update OTA resource
