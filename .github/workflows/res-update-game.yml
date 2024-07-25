@@ -14,8 +14,6 @@ jobs:
   # clone-resources-official:
   #   if: github.repository_owner == 'MaaAssistantArknights'
   #   runs-on: ubuntu-latest
-  #   env:
-  #     GH_TOKEN: ${{ secrets.MAA_RESOURCE_SYNC }}
   #   steps:
   #     - name: Clone ArknightsGameResource for Official
   #       uses: actions/checkout@v4
@@ -47,8 +45,6 @@ jobs:
   # clone-resources-overseas:
   #   if: github.repository_owner == 'MaaAssistantArknights'
   #   runs-on: ubuntu-latest
-  #   env:
-  #     GH_TOKEN: ${{ secrets.MISTEOWORKFLOW }}
   #   steps:
   #     - name: Clone ArknightsGameResource_Yostar for Overseas
   #       uses: actions/checkout@v4
@@ -90,8 +86,6 @@ jobs:
 
   # clone-resources-txwy:
   #   runs-on: ubuntu-latest
-  #   env:
-  #     GH_TOKEN: ${{ secrets.MISTEOWORKFLOW }}
   #   steps:
   #     - name: Clone arknights-toolbox-update for Taiwan
   #       uses: actions/checkout@v4
@@ -112,8 +106,6 @@ jobs:
   update-game-resources:
     if: github.repository_owner == 'MaaAssistantArknights'
     runs-on: windows-latest
-    env:
-      GH_TOKEN: ${{ secrets.MISTEOWORKFLOW }}
     steps:
       - name: Echo Authenticated User
         id: user_info
@@ -135,7 +127,6 @@ jobs:
         with:
           show-progress: false
           fetch-depth: 1
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Restore ResourceUpdater.exe from cache
       #   id: cache-resupd
@@ -150,8 +141,6 @@ jobs:
       #   if: steps.cache-resupd.outputs.cache-hit != 'true'
       #   run: |
       #     python3 maadeps-download.py x64-windows
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Add msbuild to PATH
       #   if: steps.cache-resupd.outputs.cache-hit != 'true'
