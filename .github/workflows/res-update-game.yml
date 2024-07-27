@@ -186,7 +186,7 @@ jobs:
       - name: Run Prettier on modified Jsons
         run: |
           Invoke-Expression "npx prettier -w $(git diff --name-only --diff-filter=ACM 2>$null | Where-Object { $_ -match '\.json$' })"
-
+      
       - name: Check if only sorted and Templates
         id: check_sorted_templates
         run: |
@@ -198,9 +198,9 @@ jobs:
             exit 0
           }
 
-          Write-Output ""
+          Write-Output "`n"
           Write-Output $gd
-          Write-Output ""
+          Write-Output "`n"
 
           $diff = $false
           $hasPng = $false
