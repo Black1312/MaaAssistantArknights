@@ -11,7 +11,7 @@ on:
         required: false
 
 jobs:
-  clone-resources-official:
+  clone-official:
     if: github.repository_owner == 'MaaAssistantArknights'
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +41,7 @@ jobs:
           name: official
           path: ./Official
 
-  clone-resources-overseas:
+  clone-overseas:
     if: github.repository_owner == 'MaaAssistantArknights'
     runs-on: ubuntu-latest
     steps:
@@ -82,7 +82,7 @@ jobs:
           name: overseas
           path: ./Overseas
 
-  clone-resources-txwy:
+  clone-txwy:
     runs-on: ubuntu-latest
     steps:
       - name: Clone arknights-toolbox-update for Taiwan
@@ -101,6 +101,7 @@ jobs:
           path: ./excel
 
   update-game-resources:
+    needs: [clone-official, clone-overseas, clone-txwy]
     if: github.repository_owner == 'MaaAssistantArknights'
     runs-on: windows-latest
     steps:
