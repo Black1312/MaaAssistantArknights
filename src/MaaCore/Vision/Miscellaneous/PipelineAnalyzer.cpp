@@ -34,13 +34,21 @@ PipelineAnalyzer::ResultOpt PipelineAnalyzer::analyze() const
         case AlgorithmType::MatchTemplate:
             if (auto match_opt = match(task_ptr)) {
                 Log.trace(__FUNCTION__, "| MatchTemplate", task_ptr->name);
-                return Result { .task_ptr = task_ptr, .result = *match_opt, .rect = match_opt->rect };
+                Rect rect = match_opt->rect;
+                if (!task_ptr->rect_move.empty()) {
+                    rect.move(task_ptr->rect_move);
+                }
+                return Result { .task_ptr = task_ptr, .result = *match_opt, .rect = rect };
             }
             break;
         case AlgorithmType::OcrDetect:
             if (auto ocr_opt = ocr(task_ptr)) {
                 Log.trace(__FUNCTION__, "| OcrDetect", task_ptr->name, *ocr_opt);
-                return Result { .task_ptr = task_ptr, .result = ocr_opt->front(), .rect = ocr_opt->front().rect };
+                Rect rect = ocr_opt->front().rect;
+                if (!task_ptr->rect_move.empty()) {
+                    rect.move(task_ptr->rect_move);
+                }
+                return Result { .task_ptr = task_ptr, .result = ocr_opt->front(), .rect = rect };
             }
             break;
         default:

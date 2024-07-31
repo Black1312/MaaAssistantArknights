@@ -149,11 +149,6 @@ bool ProcessTask::_run()
         }
         m_last_task_name = m_cur_task_ptr->name;
 
-        const auto& res_move = m_cur_task_ptr->rect_move;
-        if (!res_move.empty()) {
-            rect = rect.move(res_move);
-        }
-
         int& exec_times = m_exec_times[m_last_task_name];
 
         auto [max_times, limit_type] = calc_time_limit();
@@ -205,11 +200,6 @@ bool ProcessTask::_run()
         case ProcessTaskAction::ClickSelf:
             exec_click_task(rect);
             break;
-        case ProcessTaskAction::ClickRand: {
-            auto&& [width, height] = ctrler()->get_scale_size();
-            const Rect full_rect(0, 0, width, height);
-            exec_click_task(full_rect);
-        } break;
         case ProcessTaskAction::Swipe:
             exec_swipe_task(m_cur_task_ptr->specific_rect, m_cur_task_ptr->rect_move,
                             m_cur_task_ptr->special_params.empty() ? 0 : m_cur_task_ptr->special_params.at(0),
